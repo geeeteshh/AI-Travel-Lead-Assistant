@@ -3,6 +3,8 @@ import ChatWindow from './components/ChatWindow';
 import LeadDashboard from './components/LeadDashboard';
 import { Compass } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 export default function App() {
   const [messages, setMessages] = useState([
     {
@@ -33,7 +35,7 @@ export default function App() {
     if ((dbStatus === 'synced' || dbStatus === 'sync_error') && extractedData.phone) {
       intervalId = setInterval(async () => {
         try {
-          const res = await fetch(`/api/lead-status?phone=${encodeURIComponent(extractedData.phone)}`);
+          const res = await fetch(`${API_BASE}/api/lead-status?phone=${encodeURIComponent(extractedData.phone)}`);
           if (res.ok) {
             const data = await res.json();
             if (data.phone_verified) {
@@ -57,7 +59,7 @@ export default function App() {
   const handleMockVerify = async () => {
     if (!extractedData.phone) return;
     try {
-      const res = await fetch('/api/mock-verify', {
+      const res = await fetch(`${API_BASE}/api/mock-verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: extractedData.phone })
@@ -87,7 +89,7 @@ export default function App() {
         text: m.text
       }));
 
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
