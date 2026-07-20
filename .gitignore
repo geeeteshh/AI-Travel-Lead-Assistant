@@ -1,0 +1,21 @@
+# Dependency directories
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Local env files (Contains sensitive API keys & credentials)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+client/.env
+
+# Production build artifacts
+dist/
+client/dist/
+
+# OS/System files
+.DS_Store
+Thumbs.db
